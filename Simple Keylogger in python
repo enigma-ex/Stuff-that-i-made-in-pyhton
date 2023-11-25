@@ -1,0 +1,31 @@
+import keyboard
+
+# Function to record key presses
+def record_keystrokes():
+    recorded_keys = []
+
+    def on_key_event(e):
+        recorded_keys.append(e.name)
+
+    # Start recording key presses
+    keyboard.hook(on_key_event)
+
+    print("Recording keystrokes... Press 'Esc' to stop.")
+
+    # Wait for 'Esc' key to stop recording
+    keyboard.wait("esc")
+
+    # Remove the hook
+    keyboard.unhook_all()
+
+    return recorded_keys
+#Print to a txt file.
+
+def write_to_file(keys):
+    with open("Keylogger.txt", "w") as file:
+        file.write("\n".join(keys))
+
+if __name__ == "__main__":
+    keys = record_keystrokes()
+    write_to_file(keys)
+    print("Recorded keys written to keylogger.txt")
